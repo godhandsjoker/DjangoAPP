@@ -4,6 +4,11 @@ let AC_GAME_OBJECTS = [];
 class AcGameObject {
     constructor() {
         AC_GAME_OBJECTS.push(this);
+
+        // 保证第一帧只执行一次
+        this.has_called_start = false;
+        // 当前距离上一帧的时间间隔
+        this.timedelta = 0;
     }
 
     start() {
@@ -30,9 +35,19 @@ class AcGameObject {
     }
 }
 
-
+let last_timestamp
 let AC_GAME_ANIMATION = function (timestamp) {
-
+    for (let i = 0; i < AC_GAME_OBJECTS.length; i++) {
+        let obj = AC_GAME_OBJECTS[i];
+        if (!obj.has_called_start) {
+            obj.start();
+            obj.has_called_start = true;
+        } else {
+            obj.timedelta = timestamp - last_timestamp;
+            obj.update();
+        }
+    }
+    last_timestamp = timestamp;
     requestAnimationFrame(AC_GAME_ANIMATION)
 }
 
