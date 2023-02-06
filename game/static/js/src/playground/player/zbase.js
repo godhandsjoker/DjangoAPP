@@ -13,6 +13,8 @@ class Player extends AcGameObject {
         this.speed = speed;
         this.is_me = is_me;
         this.eps = 0.01;
+
+        this.hold_skill = null;
     }
 
     start() {
@@ -27,10 +29,25 @@ class Player extends AcGameObject {
             return false;
         });
         this.playground.game_map.$canvas.mousedown(function (e) {
-            if (e.which = 3) {
+            if (e.which === 3) {
                 outer.move_to(e.clientX, e.clientY);
+            } else if (e.which === 1) {
+                if (outer.our_skill === "fireball") {
+
+                }
             }
         });
+
+        $(window).keydown(function (e) {
+            if (e.which === 81) {
+                outer.cur_skill = "fireball";
+                return false;
+            }
+        });
+    }
+
+    shoot_fireball(tx, ty) {
+
     }
 
     get_dist(x1, y1, x2, y2) {
@@ -51,7 +68,7 @@ class Player extends AcGameObject {
             this.move_length = 0;
             this.vx = this.vy = 0;
             if (!this.is_me) {
-                let tx = Math.random() * this.playground.width;
+                let tx = Math.random() * this.playgrozund.width;
                 let ty = Math.random() * this.playground.height;
                 this.move_to(tx, ty);
             }
