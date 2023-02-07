@@ -13,7 +13,7 @@ class AcGameMenu {
                         多人模式
                     </div>
                     <br>
-                    <div class="ac-game-menu-field-item ac-game-menu-field-item-settings-mode">
+                    <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
                         设置
                     </div>
                 </div>
@@ -22,7 +22,7 @@ class AcGameMenu {
         this.root.$ac_game.append(this.$menu);
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
-        this.$settings_mode = this.$menu.find('.ac-game-menu-field-item-settings-mode');
+        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');
 
         this.start();
     }
@@ -40,7 +40,7 @@ class AcGameMenu {
         this.$multi_mode.click(function () {
             console.log("click multi mode");
         });
-        this.$settings_mode.click(function () {
+        this.$settings.click(function () {
             console.log("click settings mode");
         });
     }

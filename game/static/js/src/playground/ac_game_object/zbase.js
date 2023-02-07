@@ -1,6 +1,5 @@
 let AC_GAME_OBJECTS = [];
 
-
 class AcGameObject {
     constructor() {
         AC_GAME_OBJECTS.push(this);
@@ -35,7 +34,7 @@ class AcGameObject {
     }
 }
 
-let last_timestamp
+let last_timestamp;
 let AC_GAME_ANIMATION = function (timestamp) {
     for (let i = 0; i < AC_GAME_OBJECTS.length; i++) {
         let obj = AC_GAME_OBJECTS[i];
@@ -48,7 +47,7 @@ let AC_GAME_ANIMATION = function (timestamp) {
         }
     }
     last_timestamp = timestamp;
-    requestAnimationFrame(AC_GAME_ANIMATION)
+    requestAnimationFrame(AC_GAME_ANIMATION);
 }
 
 requestAnimationFrame(AC_GAME_ANIMATION);
