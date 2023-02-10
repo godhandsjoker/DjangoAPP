@@ -17,7 +17,6 @@ class FireBall extends AcGameObject {
     }
 
     start() {
-
     }
 
     update() {
@@ -31,7 +30,7 @@ class FireBall extends AcGameObject {
         this.y += this.vy * moved;
         this.move_length -= moved;
 
-        for (let i = 0; i < this.playground.players.length; i++) {
+        for (let i = 0; i < this.playground.players.length; i ++ ) {
             let player = this.playground.players[i];
             if (this.player !== player && this.is_collision(player)) {
                 this.attack(player);
@@ -49,9 +48,8 @@ class FireBall extends AcGameObject {
 
     is_collision(player) {
         let distance = this.get_dist(this.x, this.y, player.x, player.y);
-        if (distance < this.radius + player.radius) {
+        if (distance < this.radius + player.radius)
             return true;
-        }
         return false;
     }
 

@@ -16,7 +16,6 @@ class Particle extends AcGameObject {
     }
 
     start() {
-
     }
 
     update() {

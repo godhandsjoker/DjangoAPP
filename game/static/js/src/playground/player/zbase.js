@@ -45,13 +45,13 @@ class Player extends AcGameObject {
                 if (outer.cur_skill === "fireball") {
                     outer.shoot_fireball(e.clientX - rect.left, e.clientY - rect.top);
                 }
+
                 outer.cur_skill = null;
             }
         });
 
         $(window).keydown(function (e) {
-            if (e.which === 81) {
-                // Q
+            if (e.which === 81) {  // q
                 outer.cur_skill = "fireball";
                 return false;
             }

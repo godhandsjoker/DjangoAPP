@@ -10,7 +10,6 @@ class GameMap extends AcGameObject {
     }
 
     start() {
-
     }
 
     update() {
