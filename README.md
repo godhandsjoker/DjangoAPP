@@ -13,3 +13,15 @@ uwsgi --ini scripts/uwsgi.ini
 ```
 https://app1329.acapp.acwing.com.cn
 ```
+
+```
+ps aux | grep uwsgi
+```
+
+```
+sudo pkill -f uwsgi -9
+```
+
+```
+sudo service uwsgi restart
+```
