@@ -5,3 +5,11 @@
 ```python
 python3 manage.py runserver 0.0.0.0:8000
 ```
+
+```
+uwsgi --ini scripts/uwsgi.ini
+```
+
+```
+https://app1329.acapp.acwing.com.cn
+```
