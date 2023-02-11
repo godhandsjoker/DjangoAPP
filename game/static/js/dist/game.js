@@ -18,6 +18,7 @@ class AcGameMenu {
     </div>
 </div>
 `);
+        this.$menu.hide();
         this.root.$ac_game.append(this.$menu);
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
@@ -188,6 +189,11 @@ class Player extends AcGameObject {
         this.spent_time = 0;
 
         this.cur_skill = null;
+
+        if (this.is_me) {
+            this.img = new Image();
+            this.img.src = this.playground.root.settings.photo;
+        }
     }
 
     start() {
@@ -307,10 +313,20 @@ class Player extends AcGameObject {
     }
 
     render() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        this.ctx.fillStyle = this.color;
-        this.ctx.fill();
+        if (this.is_me) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.stroke();
+            this.ctx.clip();
+            this.ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+            this.ctx.restore();
+        } else {
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.fillStyle = this.color;
+            this.ctx.fill();
+        }
     }
 
     on_destroy() {
@@ -426,10 +442,66 @@ class AcGamePlayground {
         this.$playground.hide();
     }
 }
-export class AcGame {
-    constructor(id) {
+class Settings {
+    constructor(root) {
+        this.root = root;
+        this.platform = "WEB";
+        if (this.root.AcWingOS) {
+            this.platform = "AcAPP";
+        }
+        this.username = "";
+        this.photo = "";
+    }
+
+    start() {
+        this.getinfo();
+    }
+
+
+    login() {
+
+    }
+
+    register() {
+
+    }
+
+    getinfo() {
+        let outer = this;
+        $.ajax({
+            url: "https://app1329.acapp.acwing.com.cn/settings/getinfo/",
+            type: "GET",
+            data: {
+                platform: outer.platform,
+            },
+            success: function (resp) {
+                console.log(resp)
+                if (resp.result === "success") {
+                    outer.username = resp.username
+                    outer.photo = resp.photo
+                    outer.hide();
+                    outer.root.menu.show();
+                } else {
+                    outer.login();
+                }
+            }
+        });
+    }
+
+    hide() {
+
+    }
+
+    show() {
+
+    }
+}export class AcGame {
+    constructor(id, AcWingOS) {
         this.id = id;
         this.$ac_game = $('#' + id);
+        this.AcWingOS = AcWingOS;
+
+        this.settings = new Settings(this);
         this.menu = new AcGameMenu(this);
         this.playground = new AcGamePlayground(this);
 

@@ -25,3 +25,13 @@ sudo pkill -f uwsgi -9
 ```
 sudo service uwsgi restart
 ```
+
+# 对数据表操作之后要执行几个操作
+
+```
+python3 manage.py makemigrations
+```
+
+```
+python3 manage.py migrate
+```
